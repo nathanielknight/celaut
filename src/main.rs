@@ -7,15 +7,20 @@ pub enum CellValue {
     Zero,
     One,
     Two,
+    Three,
 }
+
+const CELL_LIMIT: usize = 4;
+const TABLE_SIZE: usize = 2 * CELL_LIMIT + 1;
 
 impl rand::distributions::Distribution<CellValue> for rand::distributions::Standard {
     fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> CellValue {
-        let key: u8 = rng.gen_range(0, 3);
+        let key: u8 = rng.gen_range(0, CELL_LIMIT as u8);
         match key {
             0 => CellValue::Zero,
             1 => CellValue::One,
             2 => CellValue::Two,
+            3 => CellValue::Three,
             _ => panic!("Unexpected random value while generating a CellValue"),
         }
     }
@@ -27,14 +32,20 @@ impl CellValue {
             CellValue::Zero => 0,
             CellValue::One => 1,
             CellValue::Two => 2,
+            CellValue::Three => 3,
         }
     }
+
     pub fn compare(&self, &other: &CellValue) -> i8 {
         self.to_i8() - other.to_i8()
     }
+
+    pub fn to_f32(&self) -> f32 {
+        self.to_i8() as f32
+    }
 }
 
-const CELAUT_SIZE: usize = 192;
+const CELAUT_SIZE: usize = 128;
 type Universe = [CellValue; CELAUT_SIZE];
 // type Rule = Fn(Option<CellValue>, CellValue, Option<CellValue>) -> CellValue;
 
@@ -81,9 +92,9 @@ impl CelAut {
 }
 
 mod cmp_table {
-    use std::fmt;
-
     use crate::CellValue;
+    use crate::{CELL_LIMIT, TABLE_SIZE};
+    use std::fmt;
 
     fn compare_lr(
         left: Option<CellValue>,
@@ -103,7 +114,7 @@ mod cmp_table {
 
     #[derive(Serialize, Deserialize)]
     pub struct Table {
-        tbl: [[CellValue; 5]; 5],
+        tbl: [[CellValue; TABLE_SIZE]; TABLE_SIZE],
     }
 
     impl Table {
@@ -114,16 +125,16 @@ mod cmp_table {
             right: Option<CellValue>,
         ) -> CellValue {
             let (cl, cr) = compare_lr(left, centre, right);
-            let il = (cl + 2) as usize;
-            let ir = (cr + 2) as usize;
+            let il = (cl + CELL_LIMIT as i8 - 1) as usize;
+            let ir = (cr + CELL_LIMIT as i8 - 1) as usize;
             self.tbl[il][ir]
         }
     }
 
     impl fmt::Debug for Table {
         fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-            for y in 0..5 {
-                for x in 0..5 {
+            for y in 0..TABLE_SIZE {
+                for x in 0..TABLE_SIZE {
                     let v = self.tbl[x][y];
                     write!(formatter, "{:?}", v)?;
                 }
@@ -135,9 +146,9 @@ mod cmp_table {
 
     impl rand::distributions::Distribution<Table> for rand::distributions::Standard {
         fn sample<R: rand::Rng + ?Sized>(&self, _rng: &mut R) -> Table {
-            let mut tbl = [[CellValue::Zero; 5]; 5];
-            for x in 0..5 {
-                for y in 0..5 {
+            let mut tbl = [[CellValue::Zero; TABLE_SIZE]; TABLE_SIZE];
+            for x in 0..TABLE_SIZE {
+                for y in 0..TABLE_SIZE {
                     tbl[x][y] = rand::random();
                 }
             }
@@ -148,14 +159,12 @@ mod cmp_table {
 }
 
 mod render {
+    use crate::CELL_LIMIT;
 
     fn to_pixel(cell: crate::CellValue) -> image::Rgb<u8> {
-        use crate::CellValue;
-        let data: [u8; 3] = match cell {
-            CellValue::Zero => [0; 3],
-            CellValue::One => [153; 3],
-            CellValue::Two => [255; 3],
-        };
+        const RATIO: f32 = 255.0 / (CELL_LIMIT - 1) as f32;
+        let intensity: f32 = cell.to_f32() * RATIO;
+        let data: [u8; 3] = [intensity as u8; 3];
         image::Rgb(data)
     }
 
