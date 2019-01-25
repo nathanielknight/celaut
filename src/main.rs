@@ -2,32 +2,39 @@ use rand;
 #[macro_use]
 extern crate serde_derive;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
 pub enum CellValue {
     Zero,
     One,
     Two,
-    Three,
-    Four,
-    Five,
 }
 
 impl rand::distributions::Distribution<CellValue> for rand::distributions::Standard {
     fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> CellValue {
-        let key: u8 = rng.gen_range(0, 6);
+        let key: u8 = rng.gen_range(0, 3);
         match key {
             0 => CellValue::Zero,
             1 => CellValue::One,
             2 => CellValue::Two,
-            3 => CellValue::Three,
-            4 => CellValue::Four,
-            5 => CellValue::Five,
             _ => panic!("Unexpected random value while generating a CellValue"),
         }
     }
 }
 
-const CELAUT_SIZE: usize = 128;
+impl CellValue {
+    fn to_i8(&self) -> i8 {
+        match self {
+            CellValue::Zero => 0,
+            CellValue::One => 1,
+            CellValue::Two => 2,
+        }
+    }
+    pub fn compare(&self, &other: &CellValue) -> i8 {
+        self.to_i8() - other.to_i8()
+    }
+}
+
+const CELAUT_SIZE: usize = 192;
 type Universe = [CellValue; CELAUT_SIZE];
 // type Rule = Fn(Option<CellValue>, CellValue, Option<CellValue>) -> CellValue;
 
@@ -74,7 +81,6 @@ impl CelAut {
 }
 
 mod cmp_table {
-    use std::cmp::Ordering;
     use std::fmt;
 
     use crate::CellValue;
@@ -83,29 +89,21 @@ mod cmp_table {
         left: Option<CellValue>,
         centre: CellValue,
         right: Option<CellValue>,
-    ) -> (Ordering, Ordering) {
+    ) -> (i8, i8) {
         let ldiff = match left {
-            Some(n) => centre.cmp(&n),
-            None => Ordering::Equal,
+            Some(n) => centre.compare(&n),
+            None => 0,
         };
         let rdiff = match right {
-            Some(n) => centre.cmp(&n),
-            None => Ordering::Equal,
+            Some(n) => centre.compare(&n),
+            None => 0,
         };
         (ldiff, rdiff)
     }
 
-    fn ord_to_idx(o: Ordering) -> usize {
-        match o {
-            Ordering::Less => 0,
-            Ordering::Equal => 1,
-            Ordering::Greater => 2,
-        }
-    }
-
     #[derive(Serialize, Deserialize)]
     pub struct Table {
-        tbl: [[CellValue; 3]; 3],
+        tbl: [[CellValue; 5]; 5],
     }
 
     impl Table {
@@ -115,17 +113,17 @@ mod cmp_table {
             centre: CellValue,
             right: Option<CellValue>,
         ) -> CellValue {
-            let (lc, rc) = compare_lr(left, centre, right);
-            let iy = ord_to_idx(lc);
-            let ix = ord_to_idx(rc);
-            self.tbl[ix][iy]
+            let (cl, cr) = compare_lr(left, centre, right);
+            let il = (cl + 2) as usize;
+            let ir = (cr + 2) as usize;
+            self.tbl[il][ir]
         }
     }
 
     impl fmt::Debug for Table {
         fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-            for y in 0..3 {
-                for x in 0..3 {
+            for y in 0..5 {
+                for x in 0..5 {
                     let v = self.tbl[x][y];
                     write!(formatter, "{:?}", v)?;
                 }
@@ -137,9 +135,9 @@ mod cmp_table {
 
     impl rand::distributions::Distribution<Table> for rand::distributions::Standard {
         fn sample<R: rand::Rng + ?Sized>(&self, _rng: &mut R) -> Table {
-            let mut tbl = [[CellValue::Zero; 3]; 3];
-            for x in 0..2 {
-                for y in 0..2 {
+            let mut tbl = [[CellValue::Zero; 5]; 5];
+            for x in 0..5 {
+                for y in 0..5 {
                     tbl[x][y] = rand::random();
                 }
             }
@@ -155,11 +153,8 @@ mod render {
         use crate::CellValue;
         let data: [u8; 3] = match cell {
             CellValue::Zero => [0; 3],
-            CellValue::One => [51; 3],
-            CellValue::Two => [102; 3],
-            CellValue::Three => [153; 3],
-            CellValue::Four => [204; 3],
-            CellValue::Five => [255; 3],
+            CellValue::One => [153; 3],
+            CellValue::Two => [255; 3],
         };
         image::Rgb(data)
     }
