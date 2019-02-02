@@ -23,17 +23,16 @@ fn to_pixel(cell: CellValue) -> image::Rgb<u8> {
 }
 
 pub fn render_image(celaut: &mut CelAut, tbl: &crate::diff_table::Table) {
-    let mut imgbuf: BoringBuffer =
-        BoringBuffer{ buffer: ImageBuffer::new(CELAUT_SIZE as u32, CELAUT_SIZE as u32) };
+    let mut imgbuf: BoringBuffer = BoringBuffer {
+        buffer: ImageBuffer::new(CELAUT_SIZE as u32, CELAUT_SIZE as u32),
+    };
     render::render_evolution(celaut, tbl, &mut imgbuf);
     imgbuf.buffer.save("celaut.png").unwrap();
 }
 
-
 fn get_tbl() -> diff_table::Table {
     use std::env;
     let argv: Vec<String> = env::args().collect();
-    dbg!(&argv);
     if argv.len() > 1 {
         let src = &argv[1];
         serde_json::from_str(src).unwrap()

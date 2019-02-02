@@ -11,7 +11,7 @@ pub enum CellValue {
 }
 
 pub const CELL_LIMIT: usize = 4;
-const TABLE_SIZE: usize = 2 * CELL_LIMIT + 1;
+const TABLE_SIZE: usize = 2 * CELL_LIMIT - 1;
 
 impl rand::distributions::Distribution<CellValue> for rand::distributions::Standard {
     fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> CellValue {
