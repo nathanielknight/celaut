@@ -10,7 +10,7 @@ pub enum CellValue {
     Three,
 }
 
-const CELL_LIMIT: usize = 4;
+pub const CELL_LIMIT: usize = 4;
 const TABLE_SIZE: usize = 2 * CELL_LIMIT + 1;
 
 impl rand::distributions::Distribution<CellValue> for rand::distributions::Standard {
@@ -21,7 +21,7 @@ impl rand::distributions::Distribution<CellValue> for rand::distributions::Stand
             1 => CellValue::One,
             2 => CellValue::Two,
             3 => CellValue::Three,
-            _ => panic!("Unexpected random value while generating a CellValue"),
+            _ => panic!("Random::gen_range produced an out-of-bounds value"),
         }
     }
 }
@@ -36,7 +36,7 @@ impl CellValue {
         }
     }
 
-    pub fn compare(&self, &other: &CellValue) -> i8 {
+    pub fn difference(&self, &other: &CellValue) -> i8 {
         self.to_i8() - other.to_i8()
     }
 
@@ -45,8 +45,8 @@ impl CellValue {
     }
 }
 
-const CELAUT_SIZE: usize = 128;
-type Universe = [CellValue; CELAUT_SIZE];
+pub const CELAUT_SIZE: usize = 128;
+pub type Universe = [CellValue; CELAUT_SIZE];
 // type Rule = Fn(Option<CellValue>, CellValue, Option<CellValue>) -> CellValue;
 
 fn write_new_universe<R>(old_universe: &Universe, new_universe: &mut Universe, rule: R)
@@ -74,7 +74,7 @@ pub struct CelAut {
 }
 
 impl CelAut {
-    fn random() -> Self {
+    pub fn random() -> Self {
         let mut universe = [CellValue::Zero; CELAUT_SIZE];
         for idx in 0..CELAUT_SIZE {
             universe[idx] = rand::random();
@@ -82,7 +82,7 @@ impl CelAut {
         CelAut { universe }
     }
 
-    fn advance<R>(&mut self, rule: R)
+    pub fn advance<R>(&mut self, rule: R)
     where
         R: Fn(Option<CellValue>, CellValue, Option<CellValue>) -> CellValue,
     {
@@ -91,7 +91,7 @@ impl CelAut {
     }
 }
 
-mod cmp_table {
+pub mod diff_table {
     use crate::CellValue;
     use crate::{CELL_LIMIT, TABLE_SIZE};
     use std::fmt;
@@ -102,11 +102,11 @@ mod cmp_table {
         right: Option<CellValue>,
     ) -> (i8, i8) {
         let ldiff = match left {
-            Some(n) => centre.compare(&n),
+            Some(n) => centre.difference(&n),
             None => 0,
         };
         let rdiff = match right {
-            Some(n) => centre.compare(&n),
+            Some(n) => centre.difference(&n),
             None => 0,
         };
         (ldiff, rdiff)
@@ -138,7 +138,7 @@ mod cmp_table {
                     let v = self.tbl[x][y];
                     write!(formatter, "{:?}", v)?;
                 }
-                write!(formatter, "\n");
+                write!(formatter, "\n").unwrap();
             }
             Ok(())
         }
@@ -158,47 +158,25 @@ mod cmp_table {
 
 }
 
-mod render {
-    use crate::CELL_LIMIT;
+pub mod render {
+    use crate::{diff_table, CelAut, CellValue, CELAUT_SIZE};
 
-    fn to_pixel(cell: crate::CellValue) -> image::Rgb<u8> {
-        const RATIO: f32 = 255.0 / (CELL_LIMIT - 1) as f32;
-        let intensity: f32 = cell.to_f32() * RATIO;
-        let data: [u8; 3] = [intensity as u8; 3];
-        image::Rgb(data)
+    pub trait Target {
+        fn set_value(&mut self, x: u32, y: u32, val: CellValue);
     }
 
-    pub fn render_evolution(mut celaut: crate::CelAut, tbl: &crate::cmp_table::Table) {
-        use image::ImageBuffer;
-        let mut imgbuf = ImageBuffer::new(crate::CELAUT_SIZE as u32, crate::CELAUT_SIZE as u32);
+    pub fn render_evolution(
+        celaut: &mut CelAut,
+        tbl: &diff_table::Table,
+        target: &mut impl Target,
+    ) {
         let rule = |l, c, r| tbl.lookup(l, c, r);
-        for y in 0..crate::CELAUT_SIZE {
-            for x in 0..crate::CELAUT_SIZE {
-                let px = to_pixel(celaut.universe[x as usize]);
-                imgbuf.put_pixel(x as u32, y as u32, px);
+        for y in 0..CELAUT_SIZE {
+            for x in 0..CELAUT_SIZE {
+                target.set_value(x as u32, y as u32, celaut.universe[x]);
             }
             celaut.advance(rule);
         }
-        imgbuf.save("celaut.png").unwrap();
     }
 
-}
-
-fn get_tbl() -> cmp_table::Table {
-    use std::env;
-    let argv: Vec<String> = env::args().collect();
-    if argv.len() > 1 {
-        let src = &argv[1];
-        serde_json::from_str(src).unwrap()
-    } else {
-        let tbl = rand::random();
-        println!("{}", serde_json::to_string(&tbl).unwrap());
-        tbl
-    }
-}
-
-fn main() {
-    let celaut = CelAut::random();
-    let tbl: cmp_table::Table = get_tbl();
-    render::render_evolution(celaut, &tbl);
 }
