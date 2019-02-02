@@ -99,3 +99,19 @@ On pillars of basalt in the empty void
 {"tbl":[["Three","One","Three","Three","Zero","Two","Three","Zero","Two"],["One","Zero","One","One","One","Three","Three","Two","Three"],["Three","Three","One","Zero","One","Two","Three","One","Two"],["Zero","Zero","Zero","Zero","One","Three","Three","Two","Three"],["Two","One","Three","One","One","Zero","Three","Two","Three"],["Two","Zero","One","Two","One","Two","Two","One","Zero"],["Zero","Zero","One","Two","Two","Zero","Three","Two","Three"],["Three","Zero","Three","Two","Three","Three","Zero","Two","One"],["Three","Zero","Two","Two","Three","Zero","One","Zero","Three"]]}
 ```
 
+The rains were long and grey, but the vines tumbled beautifully
+
+```json
+{"tbl":[["Three","Two","One","One","Two","Zero","Zero","One","Three"],["Three","Two","One","Three","Two","Zero","Zero","Zero","One"],["Zero","Three","Zero","Three","One","Three","Two","Two","Two"],["Three","Two","Two","One","One","Zero","One","One","One"],["Three","Zero","One","One","One","Two","Three","Three","One"],["One","One","Two","One","Two","Zero","One","Three","Two"],["Three","One","Three","Zero","One","Two","Zero","Zero","Three"],["Three","Zero","Three","Two","Zero","Three","Three","Three","Two"],["Zero","Two","One","Two","Zero","One","One","One","Two"]]}
+```
+
+When they arrived, some were still pristine white, while others had become a mottled grey
+
+```json
+{"tbl":[["One","Two","Three","Zero","Zero","Zero","Two","Two","Zero"],["Three","Three","Three","Zero","Zero","Three","Three","Three","Three"],["Three","Zero","Three","One","Two","Zero","Two","Zero","Two"],["Zero","One","One","Three","Zero","Zero","Zero","Two","Three"],["Three","One","One","Zero","One","One","Two","One","One"],["Zero","One","Two","One","One","One","One","One","Two"],["Three","Three","Two","One","One","Two","Zero","One","Zero"],["One","One","Zero","Three","Two","Two","One","Three","Zero"],["Two","Zero","Three","Zero","One","One","Zero","Three","Two"]]}
+```
+The flood damage looked even worse from the air
+
+```json
+{"tbl":[["Three","One","One","Zero","Zero","Zero","Two","Three","One"],["Three","Three","Zero","Two","Two","Three","Zero","Three","Zero"],["Zero","One","Two","Two","Two","One","One","Zero","One"],["Two","One","Zero","One","Two","One","Two","One","Zero"],["One","Zero","Zero","Zero","Zero","Two","Three","Two","Zero"],["One","Zero","Three","Two","One","Three","Three","Zero","Three"],["One","Zero","Three","Two","Two","One","Two","One","Three"],["Zero","One","Three","One","One","One","Three","Zero","One"],["Zero","One","Three","One","Two","Three","Three","Three","Two"]]}
+```
