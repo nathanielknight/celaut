@@ -145,6 +145,9 @@ pub mod render {
         target: &mut impl Target,
     ) {
         let rule = |l, c, r| tbl.lookup(l, c, r);
+        for _ in 0..16 {
+            celaut.advance(rule);
+        }
         for y in 0..CELAUT_SIZE {
             for x in 0..CELAUT_SIZE {
                 target.set_value(x as u32, y as u32, celaut.universe[x]);
