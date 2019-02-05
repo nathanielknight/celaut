@@ -26,98 +26,101 @@ Melting castles
 {"tbl":[["One","Zero","One","Two","One"],["One","Zero","Two","One","Zero"],["One","One","One","Two","One"],["Two","One","Two","Two","Zero"],["Two","Zero","Zero","Zero","One"]]}
 ```
 
-# f6e30e7367b5d7ff89e5e573736f2ba83d3ed495
+# b5f9bd6188e9aeed0f584ace156c0aaafbfb56df
+
 
 Fell flames quickly falling
 
 ```json
-{"tbl":[["Three","Three","Zero","One","Three","Two","One","Three","Zero"],["Two","Zero","One","Two","One","Two","Zero","Zero","Two"],["Three","Three","Three","Zero","Zero","One","Two","Three","Zero"],["Three","Three","Zero","Three","One","Zero","Three","One","Two"],["Three","Zero","Two","Two","Zero","Two","Zero","Three","Two"],["Two","Zero","Three","One","Zero","Three","One","Zero","Three"],["Two","Two","Zero","Three","Zero","One","One","Two","One"],["One","One","Two","Zero","Two","One","Zero","One","Three"],["Three","One","Two","Zero","Three","Zero","One","Zero","One"]]}
+3233322303300201302301203213310100022102311023011
 ```
 
 In the face of chaos and void, triangles
 
 ```json
-{"tbl":[["One","Zero","Zero","Two","One","Two","One","Zero","Zero"],["Zero","Zero","Three","Zero","Zero","Two","Zero","One","Two"],["Three","Zero","Two","Three","Zero","Three","One","Two","Three"],["Two","Two","Three","Three","Three","Three","Three","Three","Three"],["One","Three","Two","Two","Three","One","Two","Two","Two"],["Three","Zero","One","One","Two","Three","One","Zero","Three"],["Two","Zero","Zero","Zero","Three","One","One","Three","Three"],["Two","Three","One","Zero","Two","Two","Two","Three","Two"],["One","Three","Zero","One","Zero","Two","Two","Zero","Zero"]]}
+1032132000230003232102033210100332322331311013211
 ```
 
 Spindle thin, the spires cast stark shadows
 
 ```json
-{"tbl":[["One","Two","Zero","Two","One","Zero","One","One","Three"],["Three","Zero","Two","One","One","One","Three","Three","Two"],["Two","Zero","Three","Zero","Zero","Two","Zero","Three","Zero"],["Three","One","Zero","One","One","Zero","One","Two","One"],["Zero","Zero","Zero","Zero","Zero","Two","Two","Zero","Zero"],["Two","Zero","One","Two","Two","Two","Three","One","Two"],["Three","Zero","Three","Two","Three","Three","One","Zero","One"],["One","Three","Three","Two","One","One","One","One","Zero"],["One","One","Three","Three","Two","Two","Two","Three","Three"]]}
+1323023200100002300132101022110102301202231301231
 ```
 
 Grey aggregate thick with gems
 
 ```json
-{"tbl":[["Three","Three","One","Zero","Three","Zero","Two","Three","Zero"],["Zero","Zero","Three","One","Three","Three","One","Two","One"],["Two","Two","Two","One","One","Two","Two","Zero","One"],["Zero","Zero","Two","One","Zero","Two","Three","One","Zero"],["Three","Two","Zero","One","Two","Two","Zero","Three","Three"],["Zero","Zero","Three","Zero","Zero","Zero","Two","Three","Two"],["Three","Two","One","One","Three","Two","One","Two","Zero"],["Three","Two","Zero","Two","Three","One","One","Zero","One"],["Zero","One","One","One","Zero","Zero","Zero","Three","Three"]]}
+3020303302020213220310111101331020303222022123021
 ```
 
 The tracks compute, inscutable
 
 ```json
-{"tbl":[["Three","Two","Three","Three","Three","Two","Zero","Three","Zero"],["Zero","One","One","Three","One","Zero","Zero","Two","Three"],["One","Two","One","Three","Zero","Three","Zero","Two","Zero"],["Two","Zero","Three","Three","Two","Zero","Three","Zero","Three"],["Zero","One","One","Three","Three","Zero","Two","Two","Two"],["Three","Zero","One","Three","Three","Zero","Two","Zero","One"],["Two","One","Three","Zero","Three","One","Zero","One","Two"],["Two","One","Zero","Three","One","Three","Three","One","One"],["Two","One","One","Two","One","One","Two","Two","Zero"]]}
+3012032212010131131133333330310233320300010003220
 ```
 
 Pitfalls punctuating patterns
 
 ```json
-{"tbl":[["Three","Two","Zero","Two","Three","Zero","Three","Three","One"],["Zero","Zero","Two","Three","Three","Three","Three","Three","Two"],["One","Zero","Zero","Zero","Three","Zero","Zero","Three","Three"],["Two","Zero","Three","One","Three","Two","Three","Zero","Two"],["Zero","One","Zero","Three","One","Zero","Three","Three","One"],["Three","Zero","Two","One","Three","Zero","Three","One","Three"],["Zero","Zero","Three","Two","One","Three","Three","One","One"],["Two","One","Two","One","Two","Three","Three","One","Three"],["Zero","Three","Three","Two","Three","One","Zero","Three","One"]]}
+3012030200010002030232301312333313103020033303333
+```
 
 Desert
 
 ```json
-{"tbl":[["Zero","Two","One","Zero","Three","Two","One","One","Three"],["Three","Three","One","Zero","Zero","Two","Zero","Two","Three"],["Zero","Three","Three","Three","Three","Two","Three","One","One"],["Three","Two","Two","Three","Two","One","Zero","Three","Two"],["Two","Zero","Three","Two","One","Three","Two","Zero","One"],["One","One","Two","One","Two","Three","One","One","Two"],["Zero","Zero","Three","Zero","Two","One","One","One","Three"],["Zero","Zero","Three","Two","One","Two","Zero","Zero","Three"],["Zero","One","Zero","Zero","Three","Three","Zero","One","Three"]]}'
+0303210233201011323230033210303212222213311030211
 ```
 
 Ruins, ragged and run, but regular
 
 ```json
-{"tbl":[["Three","One","Two","Three","Two","One","Two","Zero","Zero"],["One","Two","One","One","One","Three","Zero","Three","One"],["Zero","Three","One","One","One","One","One","Three","Zero"],["One","Two","Three","Zero","One","Three","One","One","Three"],["Zero","Zero","One","Three","Three","Three","Two","Zero","One"],["Two","Zero","Three","Three","Three","One","Two","Three","One"],["Two","Zero","Three","Zero","Zero","One","Two","One","Two"],["Three","One","Two","One","Two","One","Three","Two","Two"],["Zero","Two","Three","One","One","One","Zero","Zero","Two"]]}
+3101022123200021131333110330211133013133112011222
 ```
 
 Into bland soil, roots run down deep
 
 ```json
-{"tbl":[["Zero","One","Three","Zero","Two","Two","Two","Three","Three"],["Three","Zero","One","One","Three","Three","Two","Three","One"],["One","Zero","One","Two","One","Zero","Three","Zero","Zero"],["Two","Two","One","One","One","Zero","Zero","Zero","One"],["Three","One","Zero","Three","One","Three","Three","One","One"],["Two","Three","One","Two","Two","Three","One","Two","Three"],["Two","Zero","Three","Three","One","Two","Zero","Zero","Two"],["Three","Zero","Two","Two","Three","Two","One","One","Zero"],["One","One","Zero","Zero","Three","Two","Zero","One","Two"]]}
+0312322100213031110130121323231112123003322230310
 ```
 
 Mosaic with mechanisms all its own
 
 ```json
-{"tbl":[["One","Two","Three","Three","Three","Two","Two","Three","Two"],["One","Zero","Two","Zero","Two","Zero","Zero","Three","Two"],["One","Zero","Zero","Zero","Zero","One","Three","Two","One"],["Two","One","One","Zero","Zero","One","Two","Two","One"],["One","Two","Three","Two","Zero","One","Zero","Three","One"],["Three","Three","One","Zero","Three","Zero","Three","One","One"],["Three","Three","Two","One","Zero","Three","Zero","One","Zero"],["Three","Zero","Zero","Zero","Two","Three","One","Three","Zero"],["Zero","Two","Zero","Zero","One","One","One","Zero","Three"]]}
+1112133200123332013123000201320003020111032032030
 ```
 
 Knit tight, with the occasional tangle and fray
 
 ```json
-{"tbl":[["Two","One","Two","Three","One","Three","Two","Zero","Zero"],["Zero","Two","Two","One","Zero","Three","Two","Two","Two"],["One","Three","Three","One","Two","Zero","Two","Three","Two"],["Two","Three","Three","Three","One","One","Three","One","One"],["Zero","Two","Zero","One","Two","Zero","Two","Zero","Two"],["One","One","One","Two","Two","Two","Zero","Two","One"],["Two","Two","One","Zero","Three","Three","Three","Two","One"],["Zero","Two","Zero","Zero","Zero","Three","Two","Two","One"],["One","Two","Three","Two","One","One","Two","Three","One"]]}
+2012012123321222330113113120102122333010232223203
 ```
 
 On pillars of basalt in the empty void
 
 ```json
-{"tbl":[["Three","One","Three","Three","Zero","Two","Three","Zero","Two"],["One","Zero","One","One","One","Three","Three","Two","Three"],["Three","Three","One","Zero","One","Two","Three","One","Two"],["Zero","Zero","Zero","Zero","One","Three","Three","Two","Three"],["Two","One","Three","One","One","Zero","Three","Two","Three"],["Two","Zero","One","Two","One","Two","Two","One","Zero"],["Zero","Zero","One","Two","Two","Zero","Three","Two","Three"],["Three","Zero","Three","Two","Three","Three","Zero","Two","One"],["Three","Zero","Two","Two","Three","Zero","One","Zero","Three"]]}
+3130220103010031103113100122011111223230203333323
 ```
 
 The rains were long and grey, but the vines tumbled beautifully
 
 ```json
-{"tbl":[["Three","Two","One","One","Two","Zero","Zero","One","Three"],["Three","Two","One","Three","Two","Zero","Zero","Zero","One"],["Zero","Three","Zero","Three","One","Three","Two","Two","Two"],["Three","Two","Two","One","One","Zero","One","One","One"],["Three","Zero","One","One","One","Two","Three","Three","One"],["One","One","Two","One","Two","Zero","One","Three","Two"],["Three","One","Three","Zero","One","Two","Zero","Zero","Three"],["Three","Zero","Three","Two","Zero","Three","Three","Three","Two"],["Zero","Two","One","Two","Zero","One","One","One","Two"]]}
+3303313223201111021231331110221112100302020021310
 ```
 
 When they arrived, some were still pristine white, while others had become a mottled grey
 
 ```json
-{"tbl":[["One","Two","Three","Zero","Zero","Zero","Two","Two","Zero"],["Three","Three","Three","Zero","Zero","Three","Three","Three","Three"],["Three","Zero","Three","One","Two","Zero","Two","Zero","Two"],["Zero","One","One","Three","Zero","Zero","Zero","Two","Three"],["Three","One","One","Zero","One","One","Two","One","One"],["Zero","One","Two","One","One","One","One","One","Two"],["Three","Three","Two","One","One","Two","Zero","One","Zero"],["One","One","Zero","Three","Two","Two","One","Three","Zero"],["Two","Zero","Three","Zero","One","One","Zero","Three","Two"]]}
+1330303230111333311220013011002011103001122320210
 ```
+
 The flood damage looked even worse from the air
 
 ```json
-{"tbl":[["Three","One","One","Zero","Zero","Zero","Two","Three","One"],["Three","Three","Zero","Two","Two","Three","Zero","Three","Zero"],["Zero","One","Two","Two","Two","One","One","Zero","One"],["Two","One","Zero","One","Two","One","Two","One","Zero"],["One","Zero","Zero","Zero","Zero","Two","Three","Two","Zero"],["One","Zero","Three","Two","One","Three","Three","Zero","Three"],["One","Zero","Three","Two","Two","One","Two","One","Three"],["Zero","One","Three","One","One","One","Three","Zero","One"],["Zero","One","Three","One","Two","Three","Three","Three","Two"]]}
+3302111131100010200330221022022201203112312012332
 ```
 
 The waves crashed in, fast and frothing
 
 ```json
-{"tbl":[["One","Zero","One","Three","Zero","Zero","Three","Three","Zero"],["One","Two","Three","Zero","Zero","One","Zero","Zero","Zero"],["Zero","One","Zero","One","Three","One","Three","Zero","Two"],["Two","Zero","Zero","Three","One","Zero","One","Zero","One"],["Zero","One","Zero","Zero","One","One","Three","Three","Three"],["Zero","Three","Zero","Three","Three","Zero","One","One","Three"],["Two","Three","Two","Zero","Zero","Zero","One","Zero","Two"],["One","Zero","Two","Three","One","Three","Three","Zero","Two"],["Two","Zero","Zero","Three","Three","Zero","One","Three","Three"]]}
+1102002021013313000023013030003113001101003031311
 ```
