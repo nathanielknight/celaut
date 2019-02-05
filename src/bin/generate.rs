@@ -1,8 +1,36 @@
-use celaut::*;
-use crate::diff_table;
-use crate::render;
+use celaut::{convert, diff_table, render, *};
+use rand::{self, Rng};
 
 use image::ImageBuffer;
+
+fn random_cell_value() -> CellValue {
+    let key: u8 = rand::thread_rng().gen_range(0, CELL_LIMIT as u8);
+    match key {
+        0 => CellValue::Zero,
+        1 => CellValue::One,
+        2 => CellValue::Two,
+        3 => CellValue::Three,
+        _ => panic!("random::gen_range produced an out-of-bounds value"),
+    }
+}
+
+fn random_celaut() -> CelAut {
+    let mut universe = [CellValue::Zero; CELAUT_SIZE];
+    for idx in 0..CELAUT_SIZE {
+        universe[idx] = random_cell_value();
+    }
+    CelAut::new(universe)
+}
+
+fn random_diff_table() -> diff_table::Table {
+    let mut tbl = [[CellValue::Zero; TABLE_SIZE]; TABLE_SIZE];
+    for x in 0..TABLE_SIZE {
+        for y in 0..TABLE_SIZE {
+            tbl[x][y] = random_cell_value();
+        }
+    }
+    diff_table::Table::new(tbl)
+}
 
 struct BoringBuffer {
     buffer: ImageBuffer<image::Rgb<u8>, std::vec::Vec<u8>>,
@@ -35,16 +63,16 @@ fn get_tbl() -> diff_table::Table {
     let argv: Vec<String> = env::args().collect();
     if argv.len() > 1 {
         let src = &argv[1];
-        serde_json::from_str(src).unwrap()
+        convert::table_from_str(src).unwrap()
     } else {
-        let tbl = rand::random();
-        println!("{}", serde_json::to_string(&tbl).unwrap());
+        let tbl = random_diff_table();
+        println!("{}", convert::table_to_string(&tbl));
         tbl
     }
 }
 
 fn main() {
-    let mut celaut = CelAut::random();
+    let mut celaut = random_celaut();
     let tbl: diff_table::Table = get_tbl();
     render_image(&mut celaut, &tbl);
 }

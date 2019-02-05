@@ -1,8 +1,4 @@
-use rand;
-#[macro_use]
-extern crate serde_derive;
-
-#[derive(Clone, Copy, Debug, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug)]
 pub enum CellValue {
     Zero,
     One,
@@ -11,20 +7,7 @@ pub enum CellValue {
 }
 
 pub const CELL_LIMIT: usize = 4;
-const TABLE_SIZE: usize = 2 * CELL_LIMIT - 1;
-
-impl rand::distributions::Distribution<CellValue> for rand::distributions::Standard {
-    fn sample<R: rand::Rng + ?Sized>(&self, rng: &mut R) -> CellValue {
-        let key: u8 = rng.gen_range(0, CELL_LIMIT as u8);
-        match key {
-            0 => CellValue::Zero,
-            1 => CellValue::One,
-            2 => CellValue::Two,
-            3 => CellValue::Three,
-            _ => panic!("Random::gen_range produced an out-of-bounds value"),
-        }
-    }
-}
+pub const TABLE_SIZE: usize = 2 * CELL_LIMIT - 1;
 
 impl CellValue {
     fn to_i8(&self) -> i8 {
@@ -74,11 +57,7 @@ pub struct CelAut {
 }
 
 impl CelAut {
-    pub fn random() -> Self {
-        let mut universe = [CellValue::Zero; CELAUT_SIZE];
-        for idx in 0..CELAUT_SIZE {
-            universe[idx] = rand::random();
-        }
+    pub fn new(universe: Universe) -> Self {
         CelAut { universe }
     }
 
@@ -112,12 +91,15 @@ pub mod diff_table {
         (ldiff, rdiff)
     }
 
-    #[derive(Serialize, Deserialize)]
     pub struct Table {
         tbl: [[CellValue; TABLE_SIZE]; TABLE_SIZE],
     }
 
     impl Table {
+        pub fn new(tbl: [[CellValue; TABLE_SIZE]; TABLE_SIZE]) -> Self {
+            Table { tbl }
+        }
+
         pub fn lookup(
             &self,
             left: Option<CellValue>,
@@ -128,6 +110,10 @@ pub mod diff_table {
             let il = (cl + CELL_LIMIT as i8 - 1) as usize;
             let ir = (cr + CELL_LIMIT as i8 - 1) as usize;
             self.tbl[il][ir]
+        }
+
+        pub fn value_at(&self, i: usize, j: usize) -> CellValue {
+            self.tbl[i][j]
         }
     }
 
@@ -141,18 +127,6 @@ pub mod diff_table {
                 write!(formatter, "\n").unwrap();
             }
             Ok(())
-        }
-    }
-
-    impl rand::distributions::Distribution<Table> for rand::distributions::Standard {
-        fn sample<R: rand::Rng + ?Sized>(&self, _rng: &mut R) -> Table {
-            let mut tbl = [[CellValue::Zero; TABLE_SIZE]; TABLE_SIZE];
-            for x in 0..TABLE_SIZE {
-                for y in 0..TABLE_SIZE {
-                    tbl[x][y] = rand::random();
-                }
-            }
-            Table { tbl }
         }
     }
 
@@ -179,4 +153,94 @@ pub mod render {
         }
     }
 
+}
+
+pub mod convert {
+    use crate::diff_table::Table;
+    use crate::{CellValue, Universe, CELAUT_SIZE, TABLE_SIZE};
+
+    fn acceptable_char(c: char) -> bool {
+        c == '0' || c == '1' || c == '2' || c == '3'
+    }
+
+    fn cell_value_from_char(c: char) -> CellValue {
+        match c {
+            '0' => CellValue::Zero,
+            '1' => CellValue::One,
+            '2' => CellValue::Two,
+            '3' => CellValue::Three,
+            _ => panic!("cell_value_from_char called with invalid character"),
+        }
+    }
+
+    pub fn table_from_str(src: &str) -> Result<Table, &'static str> {
+        if src.len() != 49 {
+            return Err("Expected exactly 25 characters");
+        };
+        if src.chars().any(|c| !acceptable_char(c)) {
+            return Err("Unexpected characters: only 0, 1, 2, & 3 are allowed");
+        };
+        let src_values: Vec<CellValue> = src.chars().map(cell_value_from_char).collect();
+        let mut tbl = [[CellValue::Zero; TABLE_SIZE]; TABLE_SIZE];
+        for i in 0..TABLE_SIZE {
+            for j in 0..TABLE_SIZE {
+                tbl[i][j] = src_values[j * TABLE_SIZE + i];
+            }
+        }
+        Ok(Table::new(tbl))
+    }
+
+    #[test]
+    fn test_table_from_str() {
+        let src = "0223302003331222121130103120000103211332113202133";
+        table_from_str(src).unwrap();
+    }
+
+    pub fn table_to_string(tbl: &Table) -> String {
+        let mut result = String::new();
+        for j in 0..TABLE_SIZE {
+            for i in 0..TABLE_SIZE {
+                let v = tbl.value_at(i, j);
+                let c = cellvalue_to_char(v);
+                result.push(c);
+            }
+        }
+        result
+    }
+
+    fn cellvalue_to_char(v: CellValue) -> char {
+        match v {
+            CellValue::Zero => '0',
+            CellValue::One => '1',
+            CellValue::Two => '2',
+            CellValue::Three => '3',
+        }
+    }
+
+    #[test]
+    fn test_table_roundrtip() {
+        {
+            let src = "0223302003331222121130103120000103211332113202133";
+            let tbl = table_from_str(src).unwrap();
+            let encoded = table_to_string(&tbl);
+            assert_eq!(src, &encoded);
+        }
+    }
+
+    pub fn universe_from_str(src: &str) -> Result<Universe, &'static str> {
+        if src.len() != CELAUT_SIZE {
+            return Err("Expected exactly 128 characters");
+        }
+        let mut universe = [CellValue::Zero; CELAUT_SIZE];
+        for (idx, cellval) in src.chars().map(cell_value_from_char).enumerate() {
+            universe[idx] = cellval;
+        }
+        Ok(universe)
+    }
+
+    #[test]
+    fn test_universe_from_str() {
+        let src = "13322312112013303223211001320220302102013331230322130200133020200210112200303020332111213131303221201233021000210131000330110130";
+        universe_from_str(src).unwrap();
+    }
 }
