@@ -10,7 +10,7 @@ pub const CELL_LIMIT: usize = 4;
 pub const TABLE_SIZE: usize = 2 * CELL_LIMIT - 1;
 
 impl CellValue {
-    fn to_i8(&self) -> i8 {
+    fn to_i8(self) -> i8 {
         match self {
             CellValue::Zero => 0,
             CellValue::One => 1,
@@ -19,12 +19,12 @@ impl CellValue {
         }
     }
 
-    pub fn difference(&self, &other: &CellValue) -> i8 {
+    pub fn difference(self, other: CellValue) -> i8 {
         self.to_i8() - other.to_i8()
     }
 
-    pub fn to_f32(&self) -> f32 {
-        self.to_i8() as f32
+    pub fn to_f32(self) -> f32 {
+        f32::from(self.to_i8())
     }
 }
 
@@ -65,7 +65,7 @@ impl CelAut {
     where
         R: Fn(Option<CellValue>, CellValue, Option<CellValue>) -> CellValue,
     {
-        let old_universe = self.universe.clone();
+        let old_universe = self.universe;
         write_new_universe(&old_universe, &mut self.universe, rule);
     }
 }
@@ -73,7 +73,6 @@ impl CelAut {
 pub mod diff_table {
     use crate::CellValue;
     use crate::{CELL_LIMIT, TABLE_SIZE};
-    use std::fmt;
 
     fn compare_lr(
         left: Option<CellValue>,
@@ -81,11 +80,11 @@ pub mod diff_table {
         right: Option<CellValue>,
     ) -> (i8, i8) {
         let ldiff = match left {
-            Some(n) => centre.difference(&n),
+            Some(n) => centre.difference(n),
             None => 0,
         };
         let rdiff = match right {
-            Some(n) => centre.difference(&n),
+            Some(n) => centre.difference(n),
             None => 0,
         };
         (ldiff, rdiff)
@@ -114,19 +113,6 @@ pub mod diff_table {
 
         pub fn value_at(&self, i: usize, j: usize) -> CellValue {
             self.tbl[i][j]
-        }
-    }
-
-    impl fmt::Debug for Table {
-        fn fmt(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
-            for y in 0..TABLE_SIZE {
-                for x in 0..TABLE_SIZE {
-                    let v = self.tbl[x][y];
-                    write!(formatter, "{:?}", v)?;
-                }
-                write!(formatter, "\n").unwrap();
-            }
-            Ok(())
         }
     }
 
