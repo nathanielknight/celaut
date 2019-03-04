@@ -124,3 +124,9 @@ The waves crashed in, fast and frothing
 ```json
 1102002021013313000023013030003113001101003031311
 ```
+
+Though technically optimal, the constructions were unsettling
+
+```json
+0110232300313201300312111120211212013010212222103
+```
